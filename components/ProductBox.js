@@ -1,7 +1,8 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useContext } from 'react'
 import styled from 'styled-components'
 import Button from './Button'
+import { CartContext } from '@/context/CartContext'
 
 const WhiteBox = styled(Link)`
   background-color: #fff;
@@ -54,6 +55,7 @@ const Price = styled.div`
 
 export default function ProductBox (props) {
   const url = '/product/' + props._id
+  const { addProduct } = useContext(CartContext)
   return (
     <div>
       <WhiteBox href={url}>
@@ -65,7 +67,7 @@ export default function ProductBox (props) {
         <Title href={url}>{props.title}</Title>
         <PriceRow>
           <Price>${props.price}</Price>
-          <Button $primary $outline>Add to cart</Button>
+          <Button $primary $outline onClick={() => addProduct(props._id)}>Add to cart</Button>
         </PriceRow>
       </ProductInfoBox>
     </div>

@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 import { Poppins } from 'next/font/google'
+import { CartContextProvider } from '@/context/CartContext'
 
 // If loading a variable font, you don't need to specify the font weight
 const poppins = Poppins({ weight: ['400', '500', '600', '700'], subsets: ['latin'] })
@@ -17,7 +18,9 @@ export default function App ({ Component, pageProps }) {
   return (
     <>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <CartContextProvider>
+        <Component {...pageProps} />
+      </CartContextProvider>
     </>
   )
 }

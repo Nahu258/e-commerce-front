@@ -111,8 +111,9 @@ export default function CartPage () {
       country,
       cartProducts
     })
-    if (response.data.url) {
-      window.location = response.data.url
+    if (response.data) {
+      window.location = response.data.init_point
+      // console.log(response.data.init_point)
     }
   }
   let total = 0

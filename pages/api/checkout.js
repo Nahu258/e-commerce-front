@@ -31,14 +31,14 @@ export default async function handler (req, res) {
     const productInfo = productsInfos.find(p => p._id.toString() === productId)
     const quantity = productsIds.filter(id => id === productId)?.length || 0
     if (quantity > 0 && productInfo) {
-      lineItems.push({
-        items: [{
+      lineItems.push(
+        {
           title: productInfo.title,
           currency_id: 'ARS',
           unit_price: quantity * productInfo.price,
           quantity
-        }]
-      })
+        }
+      )
     }
   }
 
@@ -53,7 +53,8 @@ export default async function handler (req, res) {
     paid: false
   })
 
-  const session = await mercadopago.preferences.create(lineItems, {
+  const session = await mercadopago.preferences.create({
+    items: lineItems,
     payer: {
       first_name: name
     },
@@ -61,8 +62,13 @@ export default async function handler (req, res) {
       street_name: streetAddress,
       zip_code: postalCode
     },
-    metadata: { orderId: orderDoc._id.toString(), test: 'ok' }
+    metadata: { orderId: orderDoc._id.toString(), test: 'ok' },
+    back_urls: {
+      success: process.env.PUBLIC_URL + '/cart?success=1',
+      failure: process.env.PUBLIC_URL + '/cart?failure=1'
+    },
+    auto_return: 'all'
   })
 
-  res.json(session.response)
+  res.json(session.body)
 }

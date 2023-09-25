@@ -26,12 +26,12 @@ export default async function handler (req, res) {
   const uniqueIds = [...new Set(productsIds)]
   const productsInfos = await Product.find({ _id: uniqueIds })
 
-  const lineItems = []
+  const items = []
   for (const productId of uniqueIds) {
     const productInfo = productsInfos.find(p => p._id.toString() === productId)
     const quantity = productsIds.filter(id => id === productId)?.length || 0
     if (quantity > 0 && productInfo) {
-      lineItems.push(
+      items.push(
         {
           title: productInfo.title,
           currency_id: 'ARS',
@@ -43,7 +43,7 @@ export default async function handler (req, res) {
   }
 
   const orderDoc = await Order.create({
-    lineItems,
+    items,
     name,
     email,
     city,
@@ -54,9 +54,10 @@ export default async function handler (req, res) {
   })
 
   const session = await mercadopago.preferences.create({
-    items: lineItems,
+    items,
     payer: {
-      first_name: name
+      first_name: name,
+      email
     },
     address: {
       street_name: streetAddress,

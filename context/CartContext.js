@@ -8,6 +8,8 @@ export function CartContextProvider ({ children }) {
   useEffect(() => {
     if (cartProducts?.length > 0) {
       ls?.setItem('cart', JSON.stringify(cartProducts))
+    } else {
+      ls.removeItem('cart')
     }
   }, [cartProducts])
   useEffect(() => {
@@ -29,8 +31,12 @@ export function CartContextProvider ({ children }) {
     })
   }
 
+  function clearCart () {
+    setCartProducts([])
+  }
+
   return (
-    <CartContext.Provider value={{ cartProducts, setCartProducts, addProduct, removeProduct }}>
+    <CartContext.Provider value={{ cartProducts, setCartProducts, addProduct, removeProduct, clearCart }}>
       {children}
     </CartContext.Provider>
   )

@@ -1,7 +1,7 @@
 const { Schema, models, model } = require('mongoose')
 
 const OrderSchema = new Schema({
-  lineItems: Object,
+  items: Object,
   name: String,
   email: String,
   city: String,

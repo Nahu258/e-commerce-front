@@ -90,7 +90,7 @@ export default function CartPage () {
     if (typeof window === 'undefined') {
       return
     }
-    if (window?.location.href.includes('success')) {
+    if (window.location.href.includes('success')) {
       setIsSuccess(true)
       clearCart()
     }
@@ -113,7 +113,6 @@ export default function CartPage () {
     })
     if (response.data) {
       window.location = response.data.init_point
-      // console.log(response.data.init_point)
     }
   }
   let total = 0

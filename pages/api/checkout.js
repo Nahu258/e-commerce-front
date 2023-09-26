@@ -68,7 +68,8 @@ export default async function handler (req, res) {
       success: process.env.PUBLIC_URL + '/cart?success=1',
       failure: process.env.PUBLIC_URL + '/cart?failure=1'
     },
-    auto_return: 'all'
+    auto_return: 'all',
+    notification_url: 'https://387d-181-31-155-4.ngrok-free.app/api/webhook'
   })
 
   res.json(session.body)

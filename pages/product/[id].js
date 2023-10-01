@@ -1,13 +1,13 @@
+import Button from '@/components/Button'
 import Center from '@/components/Center'
 import Header from '@/components/Header'
+import ProductImages from '@/components/ProductImages'
+import CartIcon from '@/components/icons/CartIcon'
+import { CartContext } from '@/context/CartContext'
 import { mongooseConnect } from '@/lib/mongoose'
 import { Product } from '@/models/Product'
-import styled from 'styled-components'
-import ProductImages from '@/components/ProductImages'
-import Button from '@/components/Button'
-import CartIcon from '@/components/icons/CartIcon'
 import { useContext } from 'react'
-import { CartContext } from '@/context/CartContext'
+import styled from 'styled-components'
 
 const ColWrapper = styled.div`
   display: grid;
@@ -26,13 +26,13 @@ const PriceRow = styled.div`
 const Price = styled.span`
   font-size: 1.4rem;
 `
-const Title = styled.h1`
-  font-size: 1.5em;
-`
 const WhiteBox = styled.div`
   background-color: #fff;
   border-radius: 10px;
   padding: 30px;
+`
+const Title = styled.h1`
+  font-size: 1.5em;
 `
 
 export default function ProductPage ({ product }) {

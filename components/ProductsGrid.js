@@ -1,5 +1,5 @@
-import styled from 'styled-components'
 import ProductBox from '@/components/ProductBox'
+import styled from 'styled-components'
 
 const StyledProductsGrid = styled.div`
   display: grid;

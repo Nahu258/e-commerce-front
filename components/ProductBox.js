@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import React, { useContext } from 'react'
-import styled from 'styled-components'
-import Button from './Button'
+import Button from '@/components/Button'
 import { CartContext } from '@/context/CartContext'
+import Link from 'next/link'
+import { useContext } from 'react'
+import styled from 'styled-components'
 
 const WhiteBox = styled(Link)`
   background-color: #fff;
@@ -53,21 +53,25 @@ const Price = styled.div`
   }
 `
 
-export default function ProductBox (props) {
-  const url = '/product/' + props._id
+export default function ProductBox ({ _id, title, description, price, images }) {
   const { addProduct } = useContext(CartContext)
+  const url = '/product/' + _id
   return (
     <div>
       <WhiteBox href={url}>
         <div>
-          <img src={props.images[0]} alt='' />
+          <img src={images?.[0]} alt='' />
         </div>
       </WhiteBox>
       <ProductInfoBox>
-        <Title href={url}>{props.title}</Title>
+        <Title href={url}>{title}</Title>
         <PriceRow>
-          <Price>${props.price}</Price>
-          <Button $primary $outline onClick={() => addProduct(props._id)}>Add to cart</Button>
+          <Price>
+            ${price}
+          </Price>
+          <Button $block onClick={() => addProduct(_id)} $primary $outline>
+            Add to cart
+          </Button>
         </PriceRow>
       </ProductInfoBox>
     </div>
